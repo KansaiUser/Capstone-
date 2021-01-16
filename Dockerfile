@@ -2,6 +2,8 @@
 FROM ros:kinetic-robot
 LABEL maintainer="olala7846@gmail.com"
 
+RUN python --version
+
 # Install Dataspeed DBW https://goo.gl/KFSYi1 from binary
 # adding Dataspeed server to apt
 RUN sh -c 'echo "deb [ arch=amd64 ] http://packages.dataspeedinc.com/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-dataspeed-public.list'
@@ -19,6 +21,7 @@ RUN apt-get upgrade -y
 RUN apt-get install -y python-pip
 RUN pip install --upgrade pip
 COPY requirements.txt ./requirements.txt
+RUN python --version
 RUN pip install -r requirements.txt
 
 # install required ros dependencies
