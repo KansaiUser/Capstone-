@@ -48,4 +48,6 @@ cat /etc/passwd|grep 1000
  https://medium.com/redbubble/running-a-docker-container-as-a-non-root-user-7d2e00f8ee15
 
 
+ Note: I think I have been able to run the simulator by double-clicking the file, (previously made executable)
+
  
