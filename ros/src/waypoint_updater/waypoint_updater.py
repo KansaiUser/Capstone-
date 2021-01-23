@@ -30,6 +30,7 @@ LOOKAHEAD_WPS = 200 # Number of waypoints we will publish. You can change this n
 class WaypointUpdater(object):
     def __init__(self):
         rospy.init_node('waypoint_updater')
+        rospy.loginfo("Waypoint updater initiated")
 
         rospy.Subscriber('/current_pose', PoseStamped, self.pose_cb)
         rospy.Subscriber('/base_waypoints', Lane, self.waypoints_cb)
@@ -41,7 +42,7 @@ class WaypointUpdater(object):
 
         # TODO: Add other member variables you need below
         self.pose = None
-        self.waypoints = None
+        self.base_waypoints = None
         self.waypoints_2d = None
         self.waypoint_tree = None
 
@@ -78,10 +79,10 @@ class WaypointUpdater(object):
         
         return closest_idx
 
-    def publish_waypoints(self):
+    def publish_waypoints(self, closest_idx):
         lane = Lane()
         lane.header = self.base_waypoints.header
-        lane.Waypoints = self.base_waypoints.waypoints[closest_idx : closest_idx + LOOKAHEAD_WPS]
+        lane.waypoints = self.base_waypoints.waypoints[closest_idx : closest_idx + LOOKAHEAD_WPS]
         self.final_waypoints_pub.publish(lane)
 
 
@@ -90,7 +91,7 @@ class WaypointUpdater(object):
         
 
     def waypoints_cb(self, waypoints):
-        self.waypoints = waypoints
+        self.base_waypoints = waypoints
         #Now we are going to construct the KDTree for efficiency
         if not self.waypoints_2d: 
             self.waypoints_2d = [[waypoint.pose.pose.position.x , waypoint.pose.pose.position.y ] 

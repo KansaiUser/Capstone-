@@ -50,4 +50,28 @@ cat /etc/passwd|grep 1000
 
  Note: I think I have been able to run the simulator by double-clicking the file, (previously made executable)
 
- 
+ Updates on January 23
+
+ I have been able to run the simulator graphically.
+ However when running the launch file styx.lauch an error occurs.
+ However even the error happens the other nodes still run and the waypoint updater still publishes. 
+ And in the simulator I can see the waypoints.
+
+ Next I am going to mdify the launcher so as not to include the simulator that is already running anyway
+
+ I have modified the launcher so as not to include the simulator and only the bridge
+ it seems to be going well but I got the message
+
+ [WARN] [1611390888.801616]: Inbound TCP/IP connection failed: connection from sender terminated before handshake header received. 0 bytes were received. Please check sender for additional details.
+
+I solved the remaining errors by calling in another terminal
+
+rosdep init 
+and 
+rosdep update
+
+--------------------
+
+
+
+
