@@ -1,6 +1,6 @@
 # Udacity capstone project dockerfile
 FROM ros:kinetic-robot
-LABEL maintainer="olala7846@gmail.com"
+LABEL maintainer="adapt.robot.lab@gmail.com"
 
 RUN python --version
 
@@ -31,6 +31,12 @@ RUN apt-get install -y ros-$ROS_DISTRO-image-proc
 
 # socket io
 RUN apt-get install -y netbase
+
+#tmux
+RUN apt-get install tmux 
+
+#rqt_graph
+RUN apt-get install ros-kinetic-rqt-graph
 
 RUN mkdir /capstone
 VOLUME ["/capstone"]
