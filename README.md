@@ -1,58 +1,81 @@
-This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. For more information about the project, see the project introduction [here](https://classroom.udacity.com/nanodegrees/nd013/parts/6047fe34-d93c-4f50-8336-b70ef10cb4b2/modules/e1a23b06-329a-4684-a717-ad476f0d8dff/lessons/462c933d-9f24-42d3-8bdc-a08a5fc866e4/concepts/5ab4b122-83e6-436d-850f-9f4d26627fd9).
+# Udacity Self-Driving Engineer Nanodegree
+## System Integration Project
 
-Please use **one** of the two installation options, either native **or** docker installation.
 
-### Native Installation
+This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. 
 
-* Be sure that your workstation is running Ubuntu 16.04 Xenial Xerus or Ubuntu 14.04 Trusty Tahir. [Ubuntu downloads can be found here](https://www.ubuntu.com/download/desktop).
-* If using a Virtual Machine to install Ubuntu, use the following configuration as minimum:
-  * 2 CPU
-  * 2 GB system memory
-  * 25 GB of free hard drive space
+Although in theory this project can be run natively or in a virtual machine, I have performed all operation using Docker and that is how it is explained in this Readme.
 
-  The Udacity provided virtual machine has ROS and Dataspeed DBW already installed, so you can skip the next two steps if you are using this.
-
-* Follow these instructions to install ROS
-  * [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu) if you have Ubuntu 16.04.
-  * [ROS Indigo](http://wiki.ros.org/indigo/Installation/Ubuntu) if you have Ubuntu 14.04.
-* Download the [Udacity Simulator](https://github.com/udacity/CarND-Capstone/releases).
 
 ### Docker Installation
-[Install Docker](https://docs.docker.com/engine/installation/)
+* [Install Docker](https://docs.docker.com/engine/installation/)
 
-Build the docker container
+* Download the [Udacity Simulator](https://github.com/udacity/CarND-Capstone/releases).
+
+
+* Build the docker container:
+
 ```bash
 docker build . -t capstone
 ```
 
-Run the docker file
+* Run the docker file:
+
+To run the docker container, you can use the following shell script (in the repo):
+
+
+
 ```bash
-docker run -p 4567:4567 -v $PWD:/capstone -v /tmp/log:/root/.ros/ --rm -it capstone
+./runDocker.sh 
 ```
 
+
+
+
 ### Port Forwarding
-To set up port forwarding, please refer to the "uWebSocketIO Starter Guide" found in the classroom (see Extended Kalman Filter Project lesson).
+~~~To set up port forwarding, please refer to the "uWebSocketIO Starter Guide" found in the classroom (see Extended Kalman Filter Project lesson).~~~
 
 ### Usage
 
-1. Clone the project repository
+1. Clone the project repository 
 ```bash
-git clone https://github.com/udacity/CarND-Capstone.git
+git clone https://github.com/KansaiUser/Capstone-.git 
 ```
 
-2. Install python dependencies
-```bash
-cd CarND-Capstone
-pip install -r requirements.txt
-```
-3. Make and run styx
+2. Build and run the docker image (previous section)
+
+
+3. From inside the container build the repo
 ```bash
 cd ros
 catkin_make
 source devel/setup.sh
-roslaunch launch/styx.launch
+echo $ROS_PACKAGE_PATH 
 ```
-4. Run the simulator
+
+Make sure that `/capstone/ros/src/` is part of the path. 
+
+Note: You have to source devel/setup.sh everytime you open a new terminal. 
+
+4. Run the simulator (outside the container)
+
+To run the simulator, after downloading it (see above), you have to untar the tar file, make sure that the resulting file `sys_int.x86_64` is executable (if not run `sudo chmod 777 sys_int.x86_64`) and then *from the graphical Files application (like file explorer)* double-click the Icon. 
+
+5. Run styx (inside the container)
+```bash
+roslaunch launch/nosim.launch
+```
+Note: *Do not* launch the styx.launch file since this will try to run the simulation and it will crash. 
+
+
+![simulator screenshot](./imgs/RunningSim.png)
+
+(The screenshot uses tmux, which divides the terminal in panes. Don't pay too much attention to this.)
+
+
+-------------------------
+
+
 
 ### Real world testing
 1. Download [training bag](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/traffic_light_bag_file.zip) that was recorded on the Udacity self-driving car.

@@ -19,7 +19,7 @@ The image building failed in the numpy installation.
 I tried changing the base to noetic and changing pip to pip3 where applicable but the image could not be built by imcompatibility of the versions of keras and TF.
 
 I went back to the original docker file, and modified it to install everything by hand. 
-Then I discovere that the requirements file *did not need to include numpy* since it was already installed. So I erased numpy from requirements and build the image 
+Then I discovered that the requirements file *did not need to include numpy* since it was already installed. So I erased numpy from requirements and build the image 
 
 
 
@@ -28,13 +28,12 @@ Then I discovere that the requirements file *did not need to include numpy* sinc
 
 ## Problems when running the simulator
 
-When trying to run the simulator by using the file unity_simulator_launcher.sh
+When trying to run the simulator by using the file `unity_simulator_launcher.sh`
 I got two problems: 
 
-* The first one is that for some reason I can not select the file sys_int.x86. The program does not recognize it 
-as a file
+* The first one is that for some reason I can not select the file sys_int.x86. The program does not recognize it as a file
 
-* the second is that for the file sys_init.x86_64, it recognizes it as a file but then  I got the error
+* The second is that for the file sys_init.x86_64, it recognizes it as a file but then  I got the error
 
 Got a SIGABRT while executing native code. This usually indicates
 a fatal error in the mono runtime or one of the native libraries 
@@ -66,9 +65,12 @@ cat /etc/passwd|grep 1000
 
 I solved the remaining errors by calling in another terminal
 
+```
 rosdep init 
-and 
+ 
 rosdep update
+```
+So in conclusion, I don't need to use `unity_simulator_launcher.sh` anymore. I erased anything related to calling this script from any launcher. So  have two new launch files: `server_nosim.launch` and `nosim.launch`.
 
 --------------------
 
