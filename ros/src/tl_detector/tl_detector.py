@@ -58,9 +58,13 @@ class TLDetector(object):
         rospy.spin()
 
     def pose_cb(self, msg):
+        #rospy.loginfo("Pose callback",msg)
+        print("[print] Pose callback")
         self.pose = msg
 
     def waypoints_cb(self, waypoints):
+        rospy.loginfo("waypoints callbak")
+        print("[print]waypoints callback")
         self.waypoints = waypoints
         #Now we are going to construct the KDTree for efficiency
 #        if not self.waypoints_2d: 
@@ -69,9 +73,13 @@ class TLDetector(object):
 #            self.waypoint_tree = KDTree(self.waypoints_2d)
 
     def traffic_cb(self, msg):
+        #rospy.loginfo("Traffic callback",msg)
+        print("[print] Traffic callback")
         self.lights = msg.lights
 
     def image_cb(self, msg):
+        rospy.loginfo("Image Callback")
+        print("[print] Image callback")
         """Identifies red lights in the incoming camera image and publishes the index
             of the waypoint closest to the red light's stop line to /traffic_waypoint
 
