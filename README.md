@@ -32,8 +32,7 @@ To run the docker container, you can use the following shell script (in the repo
 
 
 
-### Port Forwarding
-~~~To set up port forwarding, please refer to the "uWebSocketIO Starter Guide" found in the classroom (see Extended Kalman Filter Project lesson).~~~
+
 
 ### Usage
 
