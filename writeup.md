@@ -56,7 +56,7 @@ cat /etc/passwd|grep 1000
  However even the error happens the other nodes still run and the waypoint updater still publishes. 
  And in the simulator I can see the waypoints.
 
- Next I am going to mdify the launcher so as not to include the simulator that is already running anyway
+ Next I am going to modify the launcher so as not to include the simulator that is already running anyway
 
  I have modified the launcher so as not to include the simulator and only the bridge
  it seems to be going well but I got the message
@@ -75,5 +75,16 @@ So in conclusion, I don't need to use `unity_simulator_launcher.sh` anymore. I e
 --------------------
 
 
+2021 1 30
 
 
+Initiate new session
+
+```
+tmux new -s car_session
+```
+
+Ctrl-B "  
+Ctrl-B %
+
+31 dec I am trying to implement TL detection but I am not sure if it is working
