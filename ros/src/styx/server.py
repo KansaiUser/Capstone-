@@ -49,7 +49,7 @@ def trafficlights(sid, data):
 
 @sio.on('image')
 def image(sid, data):
-    bridge.publish_camera(data)
+    bridge.publish_camera(data)     #it used to be error (solved by updating Pillow) 
 
 if __name__ == '__main__':
 

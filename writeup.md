@@ -88,3 +88,35 @@ Ctrl-B "
 Ctrl-B %
 
 31 dec I am trying to implement TL detection but I am not sure if it is working
+
+
+2021 2 5
+
+light is of the form
+
+header: 
+  seq: 0
+  stamp: 
+    secs: 1612489353
+    nsecs: 693876981
+  frame_id: "/world"
+pose: 
+  header: 
+    seq: 0
+    stamp: 
+      secs: 1612489353
+      nsecs: 693895101
+    frame_id: "/world"
+  pose: 
+    position: 
+      x: 1172.183
+      y: 1186.299
+      z: 5.576891
+    orientation: 
+      x: 0.0
+      y: 0.0
+      z: 0.00061619942315
+      w: 0.999999810149
+state: 0
+
+

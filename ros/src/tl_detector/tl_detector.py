@@ -11,6 +11,8 @@ import tf
 import cv2
 import yaml
 
+from scipy.spatial import KDTree
+
 STATE_COUNT_THRESHOLD = 3
 
 class TLDetector(object):
@@ -55,11 +57,14 @@ class TLDetector(object):
         self.last_wp = -1
         self.state_count = 0
 
+        self.waypoints_2d = None
+        self.waypoint_tree = None
+
         rospy.spin()
 
     def pose_cb(self, msg):
-        #rospy.loginfo("Pose callback",msg)
-        print("[print] Pose callback")
+        #rospy.loginfo("Pose callback") #,msg)
+        #print("[print] Pose callback")
         self.pose = msg
 
     def waypoints_cb(self, waypoints):
@@ -67,14 +72,14 @@ class TLDetector(object):
         print("[print]waypoints callback")
         self.waypoints = waypoints
         #Now we are going to construct the KDTree for efficiency
-#        if not self.waypoints_2d: 
-#            self.waypoints_2d = [[waypoint.pose.pose.position.x , waypoint.pose.pose.position.y ] 
-#                                    for waypoint in waypoints.waypoints ]   #because the first one is a Lane actually
-#            self.waypoint_tree = KDTree(self.waypoints_2d)
+        if not self.waypoints_2d: 
+            self.waypoints_2d = [[waypoint.pose.pose.position.x , waypoint.pose.pose.position.y ] 
+                                    for waypoint in waypoints.waypoints ]   #because the first one is a Lane actually
+            self.waypoint_tree = KDTree(self.waypoints_2d)
 
     def traffic_cb(self, msg):
-        #rospy.loginfo("Traffic callback",msg)
-        print("[print] Traffic callback")
+        #rospy.loginfo("Traffic callback")#,msg)
+        #print("[print] Traffic callback")
         self.lights = msg.lights
 
     def image_cb(self, msg):
@@ -111,7 +116,8 @@ class TLDetector(object):
 
 #    def get_closest_waypoint(self, pose):
 
-    def get_closest_waypoint(self, x,y):    
+    def get_closest_waypoint(self, x,y): 
+
         """Identifies the closest path waypoint to the given position
             https://en.wikipedia.org/wiki/Closest_pair_of_points_problem
         Args:
@@ -120,11 +126,7 @@ class TLDetector(object):
         Returns:
             int: index of the closest waypoint in self.waypoints
         """
-
-#        x = pose.position.x
-#        y = pose.position.y
-
-        closest_idx = self.waypoint_tree.query([x,y],1)[1]
+        closest_idx = self.waypoint_tree.query([x,y],1)[1]  #ths is not defined anywhere
         return closest_idx
 
 
@@ -171,15 +173,20 @@ class TLDetector(object):
 
         # List of positions that correspond to the line to stop in front of for a given intersection
         stop_line_positions = self.config['stop_line_positions']
-        print(stop_line_positions)
-        rospy.loginfo(stop_line_positions)
+        #print(stop_line_positions)
+        #rospy.loginfo(stop_line_positions)
         if(self.pose):
             car_wp_idx = self.get_closest_waypoint(self.pose.pose.position.x, self.pose.pose.position.y)
             #car_position = self.get_closest_waypoint(self.pose.pose)
 
             diff = len(self.waypoints.waypoints)
             print("Diff:",diff)
+            
+
+
+
             for i, light  in enumerate(self.lights):
+                print(i,"----",light)
                 #Get stop line waypoint index
                 line = stop_line_positions[i]
                 temp_wp_idx = self.get_closest_waypoint(line[0],line[1])
@@ -196,6 +203,11 @@ class TLDetector(object):
 
         #find the closest visible traffic light (if one exists)
 
+
+
+
+
+
 #        if light:
 #            state = self.get_light_state(light)
 #            return light_wp, state
@@ -207,3 +219,6 @@ if __name__ == '__main__':
         TLDetector()
     except rospy.ROSInterruptException:
         rospy.logerr('Could not start traffic node.')
+
+
+
