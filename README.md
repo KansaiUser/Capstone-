@@ -16,7 +16,7 @@ Although in theory this project can be run natively or in a virtual machine, I h
 * Build the docker container:
 
 ```bash
-docker build . -t capstone
+docker build . -t capstone2
 ```
 
 * Run the docker file:
@@ -30,6 +30,19 @@ To run the docker container, you can use the following shell script (in the repo
 ```
 
 
+### Optional (using tmux)
+
+Instead of using several terminal you can do
+
+```
+tmux new -s <name of tmux session>
+```
+
+and then once inside divide your terminal in panes with
+
+Ctrl-b %  Split pane vertically
+
+Ctrl-b "   Split pane horizontally
 
 
 

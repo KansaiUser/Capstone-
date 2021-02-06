@@ -9,4 +9,4 @@ docker run -p 4567:4567 \
            -v /tmp/log:/root/.ros/ \
            -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
            --env=DISPLAY \
-           --rm -it capstone
+           --rm -it capstone2
