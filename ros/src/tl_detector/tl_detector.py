@@ -83,8 +83,8 @@ class TLDetector(object):
         self.lights = msg.lights
 
     def image_cb(self, msg):
-        rospy.loginfo("Image Callback")
-        print("[print] Image callback")
+        #rospy.loginfo("Image Callback")
+        #print("[print] Image callback")
         """Identifies red lights in the incoming camera image and publishes the index
             of the waypoint closest to the red light's stop line to /traffic_waypoint
 
@@ -108,6 +108,8 @@ class TLDetector(object):
         elif self.state_count >= STATE_COUNT_THRESHOLD:
             self.last_state = self.state
             light_wp = light_wp if state == TrafficLight.RED else -1
+            if(state == TrafficLight.RED):
+                print("RED Light upcomming!")
             self.last_wp = light_wp
             self.upcoming_red_light_pub.publish(Int32(light_wp))
         else:
@@ -180,13 +182,13 @@ class TLDetector(object):
             #car_position = self.get_closest_waypoint(self.pose.pose)
 
             diff = len(self.waypoints.waypoints)
-            print("Diff:",diff)
+            #print("Diff:",diff)
             
 
 
 
             for i, light  in enumerate(self.lights):
-                print(i,"----",light)
+                #print(i,"----",light)   #<-----check here
                 #Get stop line waypoint index
                 line = stop_line_positions[i]
                 temp_wp_idx = self.get_closest_waypoint(line[0],line[1])
