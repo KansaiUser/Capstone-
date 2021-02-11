@@ -4,10 +4,10 @@
 
 This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. 
 
-Although in theory this project can be run natively or in a virtual machine, I have performed all operation using Docker and that is how it is explained in this Readme.
+Although in theory this project can be run natively or in a virtual machine, I have performed all operations using Docker and that is how it is explained in this Readme.
 
 
-### Docker Installation
+### Docker Installation and image building
 * [Install Docker](https://docs.docker.com/engine/installation/)
 
 * Download the [Udacity Simulator](https://github.com/udacity/CarND-Capstone/releases).
@@ -21,18 +21,17 @@ docker build . -t capstone2
 
 * Run the docker file:
 
-To run the docker container, you can use the following shell script (in the repo):
-
+Everytime you want to run the docker container, you can use the following shell script (in the repo):
 
 
 ```bash
 ./runDocker.sh 
 ```
-
+once you do this you will be inside the docker container which has ROS installed (among other things).
 
 ### Optional (using tmux)
 
-Instead of using several terminal you can do
+Instead of using several terminals you can do
 
 ```
 tmux new -s <name of tmux session>
@@ -40,14 +39,22 @@ tmux new -s <name of tmux session>
 
 and then once inside divide your terminal in panes with
 
-Ctrl-b %  Split pane vertically
-
 Ctrl-b "   Split pane horizontally
 
+Ctrl-b %  Split pane vertically
+
+
+Then you will have a terminal like the following:
+
+![tmux screenshot](./imgs/tmuxScreen.png)
+ 
+you can go from one pane to the other with 
+
+Ctrl-b (arrows)
 
 
 
-### Usage
+### How to run the program
 
 1. Clone the project repository 
 ```bash
@@ -58,8 +65,9 @@ git clone https://github.com/KansaiUser/Capstone-.git
 
 
 3. From inside the container build the repo
+
 ```bash
-cd ros
+cd /capstone/ros  
 catkin_make
 source devel/setup.sh
 echo $ROS_PACKAGE_PATH 
@@ -73,7 +81,12 @@ Note: You have to source devel/setup.sh everytime you open a new terminal.
 
 To run the simulator, after downloading it (see above), you have to untar the tar file, make sure that the resulting file `sys_int.x86_64` is executable (if not run `sudo chmod 777 sys_int.x86_64`) and then *from the graphical Files application (like file explorer)* double-click the Icon. 
 
-5. Run styx (inside the container)
+![sim screenshot](./imgs/simulator1.png)
+
+Select the screen resolution and quality and press OK
+
+
+5. Run a modified version of styx (inside the container)
 ```bash
 roslaunch launch/nosim.launch
 ```
@@ -82,42 +95,13 @@ Note: *Do not* launch the styx.launch file since this will try to run the simula
 
 ![simulator screenshot](./imgs/RunningSim.png)
 
-(The screenshot uses tmux, which divides the terminal in panes. Don't pay too much attention to this.)
+(The screenshot uses tmux, which divides the terminal in panes as explained above)
 
+Note: If you find an error while launching the `nosim.launch` as ResourceNotFound, that means you have not source the `setup.sh` file as explained in step 3. 
+
+6. In the simulator press Highway select, and select Camera and unselect Manual.
+
+![simulator screenshot](./imgs/simu2.png)
 
 -------------------------
 
-
-
-### Real world testing
-1. Download [training bag](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/traffic_light_bag_file.zip) that was recorded on the Udacity self-driving car.
-2. Unzip the file
-```bash
-unzip traffic_light_bag_file.zip
-```
-3. Play the bag file
-```bash
-rosbag play -l traffic_light_bag_file/traffic_light_training.bag
-```
-4. Launch your project in site mode
-```bash
-cd CarND-Capstone/ros
-roslaunch launch/site.launch
-```
-5. Confirm that traffic light detection works on real life images
-
-### Other library/driver information
-Outside of `requirements.txt`, here is information on other driver/library versions used in the simulator and Carla:
-
-Specific to these libraries, the simulator grader and Carla use the following:
-
-|        | Simulator | Carla  |
-| :-----------: |:-------------:| :-----:|
-| Nvidia driver | 384.130 | 384.130 |
-| CUDA | 8.0.61 | 8.0.61 |
-| cuDNN | 6.0.21 | 6.0.21 |
-| TensorRT | N/A | N/A |
-| OpenCV | 3.2.0-dev | 2.4.8 |
-| OpenMP | N/A | N/A |
-
-We are working on a fix to line up the OpenCV versions between the two.

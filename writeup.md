@@ -1,5 +1,6 @@
 # Developing Udacity Self-driving Enginner Nanodegree program final project
 
+This document contains memo for the process of developing the project. The final process is in the README
 
 ## The process
 
@@ -9,7 +10,7 @@ My first problem was that I was not aware of a good docker image for this. First
 
 Then I discovered the capstone image mentioned in the readme. My first attempt was to do it on docker on a windows machine. 
 
-I build the image and then changing a bit of the command I could run the docker container. The problem was when executing the `catkin_make` command. It fails. First because the `CMakeLists.txt` is a linux link one, which in windows is treated as a simple text file. This produces that catkin_make fails.
+I built the image and then changing a bit of the command I could run the docker container. The problem was when executing the `catkin_make` command. It failed. First because the `CMakeLists.txt` is a linux link one, which in windows is treated as a simple text file. This produced that catkin_make fails.
 
 So I switched over to my Ubuntu 20.04.1 LTS machine.
 First I tried to build the docker container. It failed. 
@@ -20,8 +21,6 @@ I tried changing the base to noetic and changing pip to pip3 where applicable bu
 
 I went back to the original docker file, and modified it to install everything by hand. 
 Then I discovered that the requirements file *did not need to include numpy* since it was already installed. So I erased numpy from requirements and build the image 
-
-
 
 
 
@@ -39,7 +38,7 @@ Got a SIGABRT while executing native code. This usually indicates
 a fatal error in the mono runtime or one of the native libraries 
 used by your application.
 
-I suspect this is because of users and permissions
+I suspected this is because of users and permissions
 
 cat /etc/passwd|grep 1000
  shows no user 1000
@@ -47,7 +46,7 @@ cat /etc/passwd|grep 1000
  https://medium.com/redbubble/running-a-docker-container-as-a-non-root-user-7d2e00f8ee15
 
 
- Note: I think I have been able to run the simulator by double-clicking the file, (previously made executable)
+I finally was able to run the simulator by double-clicking the file, (previously made executable)
 
  Updates on January 23
 
@@ -74,7 +73,12 @@ So in conclusion, I don't need to use `unity_simulator_launcher.sh` anymore. I e
 
 --------------------
 
+## Notes on pip not supporting python 2 anymore
 
+It is well known that pip does not support python 2 anymore, so I had to modify the Dockerfile so as to install an old version of pip that supported python 2.
+
+
+------
 2021 1 30
 
 
@@ -87,7 +91,6 @@ tmux new -s car_session
 Ctrl-B "  
 Ctrl-B %
 
-31 dec I am trying to implement TL detection but I am not sure if it is working
 
 
 2021 2 5
